@@ -1,421 +1,64 @@
 # tourist-hotel-website
 3-star hotel website for Hotel "Turist" in Kyiv's Dniprovskyi district
-<!DOCTYPE html>
-<html lang="uk">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Готель «Турист» — Київ, Дніпровський район</title>
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap');
 
-  :root{
-    --river-deep:   #0F3237;
-    --river-mid:    #17494F;
-    --teal:         #3E8E86;
-    --sand:         #F3ECDA;
-    --sand-warm:    #EADFC3;
-    --sun:          #F2B233;
-    --coral:        #E2622D;
-    --ink:          #10201F;
-    --paper:        #FBF8F1;
-    --line: rgba(16,32,31,0.12);
-    --radius: 4px;
-  }
-  *{box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
-  @media (prefers-reduced-motion: reduce){
-    html{scroll-behavior:auto;}
-    *{animation-duration:0.001ms !important; transition-duration:0.001ms !important;}
-  }
-  body{
-    margin:0;
-    background:var(--paper);
-    color:var(--ink);
-    font-family:'Manrope', sans-serif;
-    line-height:1.5;
-  }
-  h1,h2,h3{
-    font-family:'Fraunces', serif;
-    margin:0;
-    letter-spacing:-0.01em;
-  }
-  .mono{ font-family:'IBM Plex Mono', monospace; letter-spacing:0.02em; }
-  a{ color:inherit; }
-  .wrap{ max-width:1080px; margin:0 auto; padding:0 28px; }
+## Про проект
 
-  /* ---------- NAV ---------- */
-  .nav{
-    position:sticky; top:0; z-index:50;
-    background:var(--paper);
-    border-bottom:1px solid var(--line);
-  }
-  .nav .wrap{
-    display:flex; align-items:center; justify-content:space-between;
-    height:64px;
-  }
-  .nav-brand{ display:flex; align-items:center; gap:10px; font-family:'Fraunces',serif; font-weight:700; font-size:1.15rem; }
-  .nav-brand .dot{ width:9px; height:9px; border-radius:50%; background:var(--coral); display:inline-block; }
-  .nav-links{ display:flex; gap:26px; font-size:0.88rem; font-weight:600; }
-  .nav-links a{ text-decoration:none; opacity:0.75; transition:opacity .15s; border-bottom:2px solid transparent; padding-bottom:3px; }
-  .nav-links a:hover, .nav-links a:focus-visible{ opacity:1; border-color:var(--coral); }
-  .nav-cta{
-    background:var(--river-deep); color:var(--sand);
-    padding:9px 18px; border-radius:var(--radius); font-size:0.82rem; font-weight:700;
-    text-decoration:none; white-space:nowrap;
-  }
-  @media (max-width:760px){ .nav-links{ display:none; } }
+Веб-сайт готелю "Турист" — це сучасна адаптивна мобільна версія з детальною інформацією про готель, номери, розташування та відгуки гостей.
 
-  /* ---------- HERO / FLIP BOARD ---------- */
-  .hero{
-    background:var(--river-deep);
-    color:var(--sand);
-    padding:64px 0 0;
-    overflow:hidden;
-    position:relative;
-  }
-  .hero-grid{
-    display:grid; grid-template-columns:1.15fr 1fr; gap:48px; align-items:center;
-    padding-bottom:56px;
-  }
-  @media (max-width:860px){ .hero-grid{ grid-template-columns:1fr; } }
+## Запуск
 
-  .eyebrow{
-    font-family:'IBM Plex Mono',monospace; text-transform:uppercase; font-size:0.72rem;
-    letter-spacing:0.14em; color:var(--sun); margin-bottom:18px; display:block;
-  }
-  .hero h1{
-    font-size:clamp(2.3rem, 4.4vw, 3.6rem);
-    font-weight:600; line-height:1.04; color:#fff;
-  }
-  .hero h1 em{ font-style:italic; color:var(--sun); }
-  .hero p.lede{
-    margin-top:20px; font-size:1.02rem; color:rgba(243,236,218,0.82); max-width:46ch;
-  }
-  .hero-stats{ display:flex; gap:28px; margin-top:30px; flex-wrap:wrap; }
-  .hero-stat b{ display:block; font-family:'Fraunces',serif; font-size:1.5rem; color:#fff; }
-  .hero-stat span{ font-size:0.78rem; color:rgba(243,236,218,0.65); }
-  .hero-actions{ margin-top:34px; display:flex; gap:14px; flex-wrap:wrap; }
-  .btn{
-    display:inline-flex; align-items:center; gap:8px;
-    padding:13px 24px; border-radius:var(--radius); font-weight:700; font-size:0.92rem;
-    text-decoration:none; border:1px solid transparent; cursor:pointer;
-  }
-  .btn-primary{ background:var(--coral); color:#fff; }
-  .btn-primary:hover{ background:#c9531f; }
-  .btn-ghost{ border-color:rgba(243,236,218,0.35); color:var(--sand); background:transparent; }
-  .btn-ghost:hover{ border-color:var(--sand); }
+### Вимоги
+- Веб-браузер (Chrome, Firefox, Safari, Edge)
+- Текстовий редактор або IDE (VS Code, Sublime Text тощо)
 
-  /* the split-flap board — signature element */
-  .board{
-    background:var(--river-mid);
-    border:1px solid rgba(243,236,218,0.15);
-    border-radius:6px;
-    padding:22px;
-    box-shadow: 0 30px 60px -20px rgba(0,0,0,0.5);
-  }
-  .board-head{
-    display:flex; justify-content:space-between; align-items:baseline;
-    font-family:'IBM Plex Mono',monospace; font-size:0.72rem; text-transform:uppercase;
-    letter-spacing:0.12em; color:rgba(243,236,218,0.55); margin-bottom:14px;
-    border-bottom:1px dashed rgba(243,236,218,0.2); padding-bottom:12px;
-  }
-  .board-row{
-    display:grid; grid-template-columns:1fr auto; align-items:center;
-    padding:13px 0; border-bottom:1px solid rgba(243,236,218,0.08);
-  }
-  .board-row:last-child{ border-bottom:none; }
-  .board-row .label{ font-size:0.86rem; color:rgba(243,236,218,0.75); }
-  .flap-group{ display:flex; gap:4px; }
-  .flap{
-    background:var(--ink); color:var(--sun);
-    font-family:'IBM Plex Mono',monospace; font-weight:500; font-size:1.05rem;
-    padding:6px 8px; border-radius:3px; min-width:1.4em; text-align:center;
-  }
-  .board-price .flap{ color:#fff; }
+### Початок роботи
 
-  /* ---------- SECTION HEADS ---------- */
-  section{ padding:72px 0; }
-  .sec-head{ max-width:640px; margin-bottom:44px; }
-  .sec-head .eyebrow{ color:var(--coral); }
-  .sec-head h2{ font-size:clamp(1.7rem,3vw,2.3rem); font-weight:600; color:var(--river-deep); }
-  .sec-head p{ margin-top:12px; color:rgba(16,32,31,0.68); }
+1. **Клонувати репозиторій:**
+```bash
+git clone https://github.com/fharaonpiramid-design/tourist-hotel-website.git
+cd tourist-hotel-website
+```
 
-  /* ---------- ABOUT / AMENITIES ---------- */
-  .about{ background:var(--paper); }
-  .about-grid{ display:grid; grid-template-columns:1fr 1fr; gap:52px; }
-  @media (max-width:820px){ .about-grid{ grid-template-columns:1fr; } }
-  .about-text p{ color:rgba(16,32,31,0.75); margin-bottom:14px; }
-  .about-text .quote-line{
-    border-left:3px solid var(--sun); padding-left:16px; font-family:'Fraunces',serif;
-    font-size:1.15rem; color:var(--river-deep); margin:22px 0; font-style:italic;
-  }
-  .amenity-list{ display:grid; grid-template-columns:1fr 1fr; gap:14px; }
-  .amenity{
-    background:var(--sand); border:1px solid var(--line); border-radius:var(--radius);
-    padding:18px 16px; display:flex; align-items:flex-start; gap:12px;
-  }
-  .amenity .ic{ font-size:1.3rem; line-height:1; }
-  .amenity b{ display:block; font-size:0.92rem; margin-bottom:2px; }
-  .amenity span{ font-size:0.78rem; color:rgba(16,32,31,0.6); }
+2. **Відкрити файл у браузері:**
+   - Знайдіть файл `README.md` (або `index.html` якщо він існує в проекті)
+   - Двічі клікніть на файл або перетягніть його в браузер
+   - Або використовуйте локальний веб-сервер
 
-  /* ---------- ROOMS ---------- */
-  .rooms{ background:var(--sand-warm); }
-  .room-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
-  @media (max-width:900px){ .room-grid{ grid-template-columns:1fr 1fr; } }
-  @media (max-width:600px){ .room-grid{ grid-template-columns:1fr; } }
-  .room-card{
-    background:var(--paper); border:1px solid var(--line); border-radius:6px;
-    padding:24px; display:flex; flex-direction:column; gap:12px;
-    transition:transform .18s ease, box-shadow .18s ease;
-  }
-  .room-card:hover{ transform:translateY(-4px); box-shadow:0 18px 30px -18px rgba(16,32,31,0.35); }
-  .room-card .tag{
-    align-self:flex-start; font-family:'IBM Plex Mono',monospace; font-size:0.68rem;
-    text-transform:uppercase; letter-spacing:0.1em; color:var(--teal); background:rgba(62,142,134,0.12);
-    padding:4px 9px; border-radius:20px;
-  }
-  .room-card h3{ font-size:1.15rem; font-weight:600; color:var(--river-deep); }
-  .room-card .meta{ font-size:0.85rem; color:rgba(16,32,31,0.6); }
-  .room-card .price{ margin-top:auto; display:flex; align-items:baseline; gap:6px; padding-top:8px; border-top:1px dashed var(--line); }
-  .room-card .price b{ font-family:'Fraunces',serif; font-size:1.4rem; color:var(--coral); }
-  .room-card .price span{ font-size:0.78rem; color:rgba(16,32,31,0.55); }
-  .rooms-note{ margin-top:26px; font-size:0.85rem; color:rgba(16,32,31,0.6); }
+3. **Запустити з веб-сервером (рекомендується):**
 
-  /* ---------- LOCATION ---------- */
-  .location{ background:var(--river-deep); color:var(--sand); }
-  .loc-grid{ display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:start; }
-  @media (max-width:820px){ .loc-grid{ grid-template-columns:1fr; } }
-  .location .sec-head p{ color:rgba(243,236,218,0.75); }
-  .location .sec-head h2{ color:#fff; }
-  .distance-row{
-    display:flex; justify-content:space-between; padding:14px 0;
-    border-bottom:1px solid rgba(243,236,218,0.15); font-size:0.92rem;
-  }
-  .distance-row b{ font-family:'IBM Plex Mono',monospace; color:var(--sun); font-weight:500; }
-  .addr-box{
-    background:rgba(243,236,218,0.06); border:1px solid rgba(243,236,218,0.15);
-    border-radius:6px; padding:22px;
-  }
-  .addr-box .l{ font-size:0.78rem; text-transform:uppercase; letter-spacing:0.1em; color:rgba(243,236,218,0.55); margin-bottom:6px; }
-  .addr-box .v{ font-family:'Fraunces',serif; font-size:1.15rem; margin-bottom:16px; }
+   **Python 3:**
+   ```bash
+   python -m http.server 8000
+   ```
+   Потім відкрийте `http://localhost:8000` у браузері
 
-  /* ---------- REVIEWS ---------- */
-  .reviews{ background:var(--paper); }
-  .review-panel{
-    display:grid; grid-template-columns:auto 1fr; gap:44px; align-items:center;
-    background:var(--sand); border:1px solid var(--line); border-radius:8px; padding:34px;
-  }
-  @media (max-width:700px){ .review-panel{ grid-template-columns:1fr; text-align:center; } }
-  .score{ text-align:center; }
-  .score b{ font-family:'Fraunces',serif; font-size:3.6rem; color:var(--river-deep); display:block; line-height:1; }
-  .score span{ font-size:0.82rem; color:rgba(16,32,31,0.6); }
-  .bars{ display:flex; flex-direction:column; gap:8px; }
-  .bar-row{ display:grid; grid-template-columns:16px 1fr auto; align-items:center; gap:10px; font-size:0.8rem; }
-  .bar-track{ height:8px; background:rgba(16,32,31,0.08); border-radius:6px; overflow:hidden; }
-  .bar-fill{ height:100%; background:var(--sun); }
+   **Node.js (http-server):**
+   ```bash
+   npx http-server
+   ```
 
-  /* ---------- FAQ ---------- */
-  .faq{ background:var(--sand-warm); }
-  details{
-    border-bottom:1px solid var(--line); padding:18px 0;
-  }
-  details summary{
-    cursor:pointer; list-style:none; display:flex; justify-content:space-between; align-items:center;
-    font-weight:700; font-size:0.98rem; color:var(--river-deep);
-  }
-  details summary::-webkit-details-marker{ display:none; }
-  details summary::after{ content:'+'; font-family:'Fraunces',serif; font-size:1.3rem; color:var(--coral); }
-  details[open] summary::after{ content:'–'; }
-  details p{ margin:12px 0 0; color:rgba(16,32,31,0.7); font-size:0.92rem; max-width:60ch; }
+## Особливості сайту
 
-  /* ---------- FOOTER ---------- */
-  footer{ background:var(--river-deep); color:rgba(243,236,218,0.65); padding:34px 0; font-size:0.82rem; }
-  .foot-row{ display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; }
+- 📱 **Адаптивний дизайн** — коректно відображається на всіх пристроях
+- 🎨 **Сучасна палітра** — узгоджені кольори та типографія
+- ♿ **Доступність** — підтримка keyboard navigation та screen readers
+- 📍 **Інтегрована інформація** — контакти, адреса, розташування
+- 💬 **FAQ розділ** — часті запитання гостей
 
-  :focus-visible{ outline:2px solid var(--coral); outline-offset:2px; }
-</style>
-</head>
-<body>
+## Структура
 
-  <nav class="nav">
-    <div class="wrap">
-      <div class="nav-brand"><span class="dot"></span>ТУРИСТ</div>
-      <div class="nav-links">
-        <a href="#about">Про готель</a>
-        <a href="#rooms">Номери</a>
-        <a href="#location">Розташування</a>
-        <a href="#reviews">Відгуки</a>
-        <a href="#faq">Питання</a>
-      </div>
-      <a class="nav-cta" href="#rooms">Забронювати</a>
-    </div>
-  </nav>
+```
+tourist-hotel-website/
+├── README.md           # Документація
+└── index.html          # Основний файл сайту (вбудований CSS та HTML)
+```
 
-  <header class="hero">
-    <div class="wrap hero-grid">
-      <div>
-        <span class="eyebrow">Дніпровський район · Київ</span>
-        <h1>Готель <em>«Турист»</em> —<br>1 хвилина від метро, крок до Гідропарку</h1>
-        <p class="lede">Тризірковий готель на лівому березі Дніпра: басейн, безкоштовний Wi-Fi та номери від 1 429 грн — для тих, хто приїхав у Київ ненадовго, але хоче встигнути все.</p>
-        <div class="hero-stats">
-          <div class="hero-stat"><b>4,0 / 5</b><span>5 916 відгуків Google</span></div>
-          <div class="hero-stat"><b>1 хв</b><span>пішки до метро</span></div>
-          <div class="hero-stat"><b>1 429 ₴</b><span>номер від</span></div>
-        </div>
-        <div class="hero-actions">
-          <a class="btn btn-primary" href="#rooms">Дивитись номери</a>
-          <a class="btn btn-ghost" href="tel:0673246690">067 324 6690</a>
-        </div>
-      </div>
+## Контактна інформація
 
-      <div class="board" aria-label="Інформація про заїзд та виїзд">
-        <div class="board-head"><span>Табло готелю</span><span>вул. Раїси Окіпної, 2</span></div>
-        <div class="board-row">
-          <span class="label">Заїзд</span>
-          <div class="flap-group"><span class="flap">1</span><span class="flap">4</span><span class="flap">:</span><span class="flap">0</span><span class="flap">0</span></div>
-        </div>
-        <div class="board-row">
-          <span class="label">Виїзд</span>
-          <div class="flap-group"><span class="flap">1</span><span class="flap">2</span><span class="flap">:</span><span class="flap">0</span><span class="flap">0</span></div>
-        </div>
-        <div class="board-row">
-          <span class="label">Скасування</span>
-          <div class="flap-group"><span class="flap">Б</span><span class="flap">Е</span><span class="flap">З</span></div>
-        </div>
-        <div class="board-row board-price">
-          <span class="label">Ніч, від</span>
-          <div class="flap-group"><span class="flap">1</span><span class="flap">4</span><span class="flap">2</span><span class="flap">9</span><span class="flap">₴</span></div>
-        </div>
-      </div>
-    </div>
-  </header>
+- 📞 Телефон: 067 324 6690
+- 📍 Адреса: вул. Раїси Окіпної, 2, Київ 02002
+- ⏰ Заїзд: 14:00, Виїзд: 12:00
 
-  <section class="about" id="about">
-    <div class="wrap about-grid">
-      <div class="about-text">
-        <span class="eyebrow" style="color:var(--coral)">Про готель</span>
-        <h2 style="margin-bottom:18px;">Затишна база на лівому березі</h2>
-        <p>«Турист» стоїть за хвилину ходьби від станції метро — зручна відправна точка, звідки легко дістатись куди завгодно в Києві, не переплачуючи за адресу в центрі.</p>
-        <p>Район відомий насамперед відпочинком просто неба: Гідропарк з пляжами та алеями, торговельно-розважальний комплекс SkyMall і Русанівські фонтани — усе в межах пішої або короткої поїздки.</p>
-        <p class="quote-line">За 5 км — статуя «Батьківщина-Мати», за 6 км — Національний музей історії України у Другій світовій війні.</p>
-      </div>
-      <div>
-        <span class="eyebrow" style="color:var(--coral)">Зручності</span>
-        <div class="amenity-list" style="margin-top:18px;">
-          <div class="amenity"><span class="ic">🏊</span><div><b>Басейн</b><span>відкритий для гостей</span></div></div>
-          <div class="amenity"><span class="ic">📶</span><div><b>Wi-Fi</b><span>безкоштовно в номерах</span></div></div>
-          <div class="amenity"><span class="ic">❄️</span><div><b>Кондиціонер</b><span>у кожному номері</span></div></div>
-          <div class="amenity"><span class="ic">🍳</span><div><b>Сніданок</b><span>за додаткову плату</span></div></div>
-        </div>
-      </div>
-    </div>
-  </section>
+## Ліцензія
 
-  <section class="rooms" id="rooms">
-    <div class="wrap">
-      <div class="sec-head">
-        <span class="eyebrow">Номери</span>
-        <h2>Від економ до стандарту</h2>
-        <p>Ціни вказано за добу для 2 гостей, 1–2 вересня. Ще 4 категорії номерів доступні за запитом.</p>
-      </div>
-      <div class="room-grid">
-        <div class="room-card">
-          <span class="tag">Економ</span>
-          <h3>Двомісний DBL</h3>
-          <div class="meta">Двоспальне ліжко · 2 гостей</div>
-          <div class="price"><b>1 429 ₴</b><span>/ доба</span></div>
-        </div>
-        <div class="room-card">
-          <span class="tag">Економ</span>
-          <h3>Двомісний TWIN</h3>
-          <div class="meta">Два окремих односпальних ліжка · 2 гостей</div>
-          <div class="price"><b>1 429 ₴</b><span>/ доба</span></div>
-        </div>
-        <div class="room-card">
-          <span class="tag">Стандарт</span>
-          <h3>Двомісний DBL</h3>
-          <div class="meta">Двоспальне ліжко · 2 гостей</div>
-          <div class="price"><b>2 024 ₴</b><span>/ доба</span></div>
-        </div>
-      </div>
-      <p class="rooms-note">Показані ціни — орієнтовні, за даними агрегаторів на дату пошуку; фінальна вартість підтверджується на сайті бронювання.</p>
-    </div>
-  </section>
-
-  <section class="location" id="location">
-    <div class="wrap loc-grid">
-      <div>
-        <span class="eyebrow">Розташування</span>
-        <h2>Дніпровський район, береги Дніпра</h2>
-        <p style="margin-top:12px;">Квартал оцінюють на 4,3 з 5 — гості відзначають його як зручний для проживання, з місцями для прогулянок і відпочинку прямо біля води.</p>
-        <div style="margin-top:26px;">
-          <div class="distance-row"><span>До станції метро</span><b>~1 хв пішки</b></div>
-          <div class="distance-row"><span>До статуї «Батьківщина-Мати»</span><b>~5 км</b></div>
-          <div class="distance-row"><span>До Музею історії України у ІІ Світовій війні</span><b>~6 км</b></div>
-        </div>
-      </div>
-      <div class="addr-box">
-        <div class="l">Адреса</div>
-        <div class="v">вул. Раїси Окіпної, 2<br>Київ, 02002</div>
-        <div class="l">Телефон</div>
-        <div class="v" style="font-size:1rem;">067 324 6690</div>
-        <div class="l">Заїзд / Виїзд</div>
-        <div class="v" style="font-size:1rem; margin-bottom:0;">14:00 — 12:00</div>
-      </div>
-    </div>
-  </section>
-
-  <section class="reviews" id="reviews">
-    <div class="wrap">
-      <div class="sec-head">
-        <span class="eyebrow">Відгуки</span>
-        <h2>Що кажуть гості</h2>
-      </div>
-      <div class="review-panel">
-        <div class="score"><b>4,0</b><span>із 5 916 відгуків</span></div>
-        <div class="bars">
-          <div class="bar-row"><span>5</span><div class="bar-track"><div class="bar-fill" style="width:52%"></div></div><span>52%</span></div>
-          <div class="bar-row"><span>4</span><div class="bar-track"><div class="bar-fill" style="width:24%"></div></div><span>24%</span></div>
-          <div class="bar-row"><span>3</span><div class="bar-track"><div class="bar-fill" style="width:12%"></div></div><span>12%</span></div>
-          <div class="bar-row"><span>2</span><div class="bar-track"><div class="bar-fill" style="width:6%"></div></div><span>6%</span></div>
-          <div class="bar-row"><span>1</span><div class="bar-track"><div class="bar-fill" style="width:6%"></div></div><span>6%</span></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="faq" id="faq">
-    <div class="wrap">
-      <div class="sec-head">
-        <span class="eyebrow">Питання</span>
-        <h2>Часті запитання</h2>
-      </div>
-      <details open>
-        <summary>Коли заїзд і виїзд у готелі «Турист»?</summary>
-        <p>Заїзд з 14:00, виїзд до 12:00.</p>
-      </details>
-      <details>
-        <summary>Чи є безкоштовний Wi-Fi?</summary>
-        <p>Так, доступ до Wi-Fi для гостей безкоштовний на всій території готелю.</p>
-      </details>
-      <details>
-        <summary>Які основні зручності пропонує готель?</summary>
-        <p>Басейн, кондиціонер у номерах та сніданок за додаткову плату.</p>
-      </details>
-      <details>
-        <summary>Наскільки далеко до аеропорту «Київ» (Жуляни)?</summary>
-        <p>Точний час у дорозі залежить від трафіку — орієнтуйтесь на 30–40 хвилин на авто з лівого берега.</p>
-      </details>
-    </div>
-  </section>
-
-  <footer>
-    <div class="wrap foot-row">
-      <span>© Готель «Турист», вул. Раїси Окіпної, 2, Київ</span>
-      <span>067 324 6690</span>
-    </div>
-  </footer>
-
-</body>
-</html>
+Проект розроблений для готелю "Турист" © 2026
